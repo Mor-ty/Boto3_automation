@@ -1,11 +1,11 @@
 
 
-## 🔧 **Overview**
+#Overview
 This script is a **security auditing tool** for AWS environments. It uses the **`boto3`** library to interact with AWS services and checks for common misconfigurations or security risks. The results are saved in a JSON file.
 
 ---
 
-## 📁 **Function-by-Function Breakdown**
+## **Function-by-Function Breakdown**
 
 ---
 
@@ -110,7 +110,7 @@ Runs all the above audit functions and aggregates the findings.
 
 ---
 
-## 🧠 Summary of Checks
+##  Summary of Checks
 
 | Check Type                  | Function                | Severity |
 |----------------------------|-------------------------|----------|
@@ -124,3 +124,4 @@ Runs all the above audit functions and aggregates the findings.
 | Stale Access Keys          | `audit_access_keys`     | Medium   |
 
 ---
+
