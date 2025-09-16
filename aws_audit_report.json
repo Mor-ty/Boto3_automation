@@ -1,0 +1,92 @@
+[
+    {
+        "Resource": "sg-0a93850a8db6fca7d",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 80,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0a93850a8db6fca7d",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 22,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0cb72cda9e1c634f0",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 22,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0cb72cda9e1c634f0",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 5000,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0a151ff54f569ebcd",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 22,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0eb74fba4f8022686",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 80,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0eb74fba4f8022686",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 22,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0eb74fba4f8022686",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 0,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0407f332cfcfd577b",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 22,
+        "Severity": "High"
+    },
+    {
+        "Resource": "sg-0407f332cfcfd577b",
+        "Issue": "Security Group allows unrestricted access",
+        "Port": 5000,
+        "Severity": "High"
+    },
+    {
+        "Resource": "gp",
+        "Issue": "IAM user has no MFA",
+        "Severity": "High"
+    },
+    {
+        "Resource": "my-terraform-user",
+        "Issue": "IAM user has no MFA",
+        "Severity": "High"
+    },
+    {
+        "Resource": "rahule-user",
+        "Issue": "IAM user has no MFA",
+        "Severity": "High"
+    },
+    {
+        "Resource": "Root Account",
+        "Issue": "Root account has access keys",
+        "Severity": "High"
+    },
+    {
+        "Resource": "CloudTrail",
+        "Issue": "CloudTrail is not enabled",
+        "Severity": "High"
+    },
+    {
+        "Resource": "AKIAZONDAQKSL3QNBFWG",
+        "Issue": "Access key has never been used",
+        "Severity": "Medium"
+    }
+]
