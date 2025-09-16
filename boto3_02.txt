@@ -1,0 +1,126 @@
+
+
+## 🔧 **Overview**
+This script is a **security auditing tool** for AWS environments. It uses the **`boto3`** library to interact with AWS services and checks for common misconfigurations or security risks. The results are saved in a JSON file.
+
+---
+
+## 📁 **Function-by-Function Breakdown**
+
+---
+
+### 1. `audit_security_groups()`
+
+**Purpose**:  
+Checks if any EC2 security group allows **unrestricted access** from the internet (`0.0.0.0/0`).
+
+**Logic**:
+- Calls `describe_security_groups()` to get all security groups.
+- Iterates through each rule (`IpPermissions`) and checks if any rule allows access from `0.0.0.0/0`.
+- If found, adds a **High severity** finding.
+
+---
+
+### 2. `audit_iam_users()`
+
+**Purpose**:  
+Checks if any IAM user **does not have MFA** (Multi-Factor Authentication) enabled.
+
+**Logic**:
+- Lists all IAM users.
+- For each user, checks if they have any MFA devices attached using `list_mfa_devices()`.
+- If none, adds a **High severity** finding.
+
+---
+
+### 3. `audit_iam_policies()`
+
+**Purpose**:  
+Detects **overly permissive IAM policies** (i.e., policies that allow `"Action": "*"` and `"Resource": "*"`).
+
+**Logic**:
+- Lists all **customer-managed** IAM policies (`Scope='Local'`).
+- For each policy, fetches its default version and inspects the policy document.
+- If any statement allows full access, adds a **High severity** finding.
+
+---
+
+### 4. `audit_s3_buckets()`
+
+**Purpose**:  
+Checks for:
+- **Publicly accessible S3 buckets**
+- **Buckets without encryption**
+
+**Logic**:
+- Lists all S3 buckets.
+- For each bucket:
+  - Checks the ACL for public access (`AllUsers` group).
+  - Tries to get encryption settings.
+  - If encryption is missing, adds a **Medium severity** finding.
+  - If public access is found, adds a **High severity** finding.
+
+---
+
+### 5. `audit_root_account()`
+
+**Purpose**:  
+Checks if the **root account has access keys**, which is a major security risk.
+
+**Logic**:
+- Uses `get_account_summary()` to check if `AccountAccessKeysPresent` is greater than 0.
+- If so, adds a **High severity** finding.
+
+---
+
+### 6. `audit_cloudtrail()`
+
+**Purpose**:  
+Checks if **CloudTrail is enabled**.
+
+**Logic**:
+- Calls `describe_trails()` to list all trails.
+- If no trails are found, adds a **High severity** finding.
+
+---
+
+### 7. `audit_access_keys()`
+
+**Purpose**:  
+Checks for **unused or stale IAM access keys**.
+
+**Logic**:
+- Lists all IAM users and their access keys.
+- For each key:
+  - Uses `get_access_key_last_used()` to find the last usage date.
+  - If unused for more than 90 days, adds a **Medium severity** finding.
+  - If never used, also adds a **Medium severity** finding.
+
+---
+
+### 8. `run_audit()`
+
+**Purpose**:  
+Runs all the above audit functions and aggregates the findings.
+
+**Logic**:
+- Calls each audit function and collects their results.
+- Writes the combined findings to a file: `aws_audit_report.json`.
+- Prints a completion message.
+
+---
+
+## 🧠 Summary of Checks
+
+| Check Type                  | Function                | Severity |
+|----------------------------|-------------------------|----------|
+| Open Security Groups       | `audit_security_groups` | High     |
+| IAM Users without MFA      | `audit_iam_users`       | High     |
+| Overly Permissive Policies | `audit_iam_policies`    | High     |
+| Public S3 Buckets          | `audit_s3_buckets`      | High     |
+| Unencrypted S3 Buckets     | `audit_s3_buckets`      | Medium   |
+| Root Access Keys           | `audit_root_account`    | High     |
+| CloudTrail Disabled        | `audit_cloudtrail`      | High     |
+| Stale Access Keys          | `audit_access_keys`     | Medium   |
+
+---
